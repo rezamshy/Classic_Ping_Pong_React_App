@@ -1,0 +1,10 @@
+main h1 {
+    margin-top: 3%;
+    text-align: center;
+    color: white;
+}
+
+.rectangle {
+    width: 5%;
+    height: 2%;
+}
