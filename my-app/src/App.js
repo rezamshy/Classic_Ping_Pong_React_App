@@ -33,11 +33,7 @@ function Paddle({pos, onChange}) {
   }, [pos]);
 
   return (
-    <button
-      style={{ position: 'absolute', top: pos.y, left: pos.x }}
-    >
-      Move me with arrow keys
-    </button>
+    <button className='rectangle' style={{position: 'absolute', top: pos.y, left: pos.x }}/>
   );
 }
 
@@ -72,8 +68,8 @@ function Ball({pos, speed, onPosChange, onSpeedChange}) {
         position: 'absolute',
         top: pos.y,
         left: pos.x,
-        width: '50px',
-        height: '50px',
+        width: '25px',
+        height: '25px',
         backgroundColor: 'red',
         borderRadius: '50%',
       }}
@@ -102,6 +98,10 @@ function App() {
 
   function updateBallSpeed (x, y) {
     setBallSpeed({x:x, y:y});
+  }
+
+  if (ballPos.x > p1Pos.x && ballPos.x < p1Pos.x + 25 && ballPos.y < 205 && ballSpeed.y!=1 ){
+    setBallSpeed({x:ballSpeed.x, y:1});
   }
 
   return (
