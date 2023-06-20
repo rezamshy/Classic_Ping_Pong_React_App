@@ -24,4 +24,4 @@ In order to run the application:
   http://localhost:3000
   ```
 
-<img src="my-app/public/screenshot"/>
+<img src="my-app/public/Screenshot.png"/>
