@@ -23,4 +23,5 @@ In order to run the application:
   ```sh
   http://localhost:3000
   ```
-  
+
+<img src="my-app/public/screenshot"/>
