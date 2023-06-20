@@ -58,23 +58,20 @@ function Ball({pos, speed, onPosChange, onSpeedChange}) {
 
       onSpeedChange(xs, ys);
 
-      setPosition((prevPosition) => ({
-        x: prevPosition.x + xs,
-        y: prevPosition.y + ys,
-      }));
+      onPosChange(pos.x + xs, pos.y + ys);
     }, 10); // Move the ball every 10 milliseconds
 
     return () => {
       clearInterval(interval); // Clean up the interval on component unmount
     };
-  }, [position]);
+  }, [pos]);
 
   return (
     <div
       style={{
         position: 'absolute',
-        top: position.y,
-        left: position.x,
+        top: pos.y,
+        left: pos.x,
         width: '50px',
         height: '50px',
         backgroundColor: 'red',
@@ -90,7 +87,7 @@ function App() {
   const [p1Pos, p1SetPos] = useState({x:10, y:200});
   const [p2Pos, p2SetPos] = useState({x:10, y:700});
   const [ballPos, setBallPos] = useState({x:400, y:400});
-  const [ballSpeed, setBallSpeed] = useState({x:1, y:1});
+  const [ballSpeed, setBallSpeed] = useState({x:2, y:2});
 
   function updatePaddlePos (pos, newX) {
       if (pos.y == 200)
@@ -99,17 +96,18 @@ function App() {
         p2SetPos({x:newX, y:pos.y});
   }
 
-  function updateBallPos () {
-
+  function updateBallPos (x, y) {
+    setBallPos({x: x, y: y});
   }
 
-  function updateBallSpeed () {
-
+  function updateBallSpeed (x, y) {
+    setBallSpeed({x:x, y:y});
   }
 
   return (
     <main>
        <h1> Hi! you can play Ping Pong here.</h1>
+
        <Paddle pos={p1Pos} onChange={updatePaddlePos} />
        <Paddle pos={p2Pos} onChange={updatePaddlePos} />
        <Ball pos={ballPos} speed={ballSpeed} onPosChange={updateBallPos} onSpeedChange={updateBallSpeed}/>
