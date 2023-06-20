@@ -23,9 +23,4 @@ In order to run the application:
   ```sh
   http://localhost:3000
   ```
-
-
-1. Clone the repo
-   ```sh
-   git clone https://github.com/zamaniali1995/ml-pipeline.git
-   ```
+  
