@@ -6,7 +6,7 @@ In order to run the application:
 
 1. Clone the repo
   ```sh
-  git clone https://github.com/zamaniali1995/ml-pipeline.git
+  git clone https://github.com/rezamshy/Classic_Ping_Pong_React_App.git
   ```
 
 2. go to my-app/ folder
