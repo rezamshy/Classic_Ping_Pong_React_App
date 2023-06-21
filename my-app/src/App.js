@@ -153,7 +153,7 @@ function App() {
   return (
     <main>
        <h1> Hi! you can play Ping Pong here.</h1>
-       <button onClick={handleFlow}> {flow == "pause" ? "play" : "pause"} </button>
+       <button onClick={handleFlow} style={{position:'absolute', top: '370px', left: '1160px', width:'100px'}}> {flow == "pause" ? "play" : "pause"} </button>
        <canvas></canvas>
        <h2 className='score' style={{top: '120px', left: '1200px'}}>{p1Score}</h2>
        <h2 className='score' style={{top: '620px', left: '1200px'}}>{p2Score}</h2>
