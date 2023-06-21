@@ -2,5 +2,6 @@ body {
   margin: 0;
   font-family: sans-serif;
   background-color: rgb(35, 109, 194);
+  position: relative;
 }
 

@@ -4,7 +4,21 @@ main h1 {
     color: white;
 }
 
-.rectangle {
+.paddle {
     width: 50px;
     height: 10px;
+}
+
+canvas {
+    position: absolute;
+    left: 400px;
+    top: 100px;
+    width: 700px;
+    height: 600px;
+    background-color: rgb(101, 105, 112);
+}
+
+.score {
+    position: absolute;
+    color: white;
 }
