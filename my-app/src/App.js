@@ -38,30 +38,32 @@ function Paddle({pos, onChange}) {
   );
 }
 
-function Ball({pos, speed, onPosChange, onSpeedChange}) {
+function Ball({pos, speed, onPosChange, onSpeedChange , flow}) {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      let xs = speed.x;
-      let ys = speed.y;
-      if (pos.y + 25 > 700)
-        ys = -2;
-      else if (pos.y < 100)
-        ys = 2;
-      if (pos.x < 400)
-        xs = 2;
-      else if (pos.x + 25 > 1100)
-        xs = -2;
+      if (flow!='pause'){
+        let xs = speed.x;
+        let ys = speed.y;
+        if (pos.y + 25 > 700)
+          ys = -2;
+        else if (pos.y < 100)
+          ys = 2;
+        if (pos.x < 400)
+          xs = 2;
+        else if (pos.x + 25 > 1100)
+          xs = -2;
 
-      onSpeedChange(xs, ys);
+        onSpeedChange(xs, ys);
 
-      onPosChange(pos.x + xs, pos.y + ys);
-    }, 10); // Move the ball every 10 milliseconds
+        onPosChange(pos.x + xs, pos.y + ys);
+      }
+      }, 10); // Move the ball every 10 milliseconds
 
     return () => {
       clearInterval(interval); // Clean up the interval on component unmount
     };
-  }, [pos]);
+  }, [pos, flow]);
 
   return (
     <div
@@ -88,6 +90,7 @@ function App() {
   const [p1Speed, setP1Speed] = useState(5);
   const [ballPos, setBallPos] = useState({x:700, y:400});
   const [ballSpeed, setBallSpeed] = useState({x:2, y:2});
+  const [flow, setFlow] = useState("pause");
 
   function updatePaddlePos (pos, newX) {
       if (pos.y == 120)
@@ -104,7 +107,14 @@ function App() {
     setBallSpeed({x:x, y:y});
   }
 
-  // AI
+  function handleFlow (){
+    if (flow == "pause")
+      setFlow("play");
+    else
+      setFlow("pause");
+  }
+
+  // NPC
   useEffect(() => {
     let p = Math.random() * 15;
     if (p1Pos.x + 50 + p < ballPos.x + 12) {
@@ -125,21 +135,31 @@ function App() {
     setBallSpeed({x:ballSpeed.x, y:2});
   }
 
+  if (ballPos.x + 25 > p2Pos.x && ballPos.x < p2Pos.x + 50 && ballPos.y + 28 == 670 && ballSpeed.y!=-2 ){
+    setBallSpeed({x:ballSpeed.x, y:-2});
+  }
+
   if (ballPos.y == 100){
     p2SetScore((prev)=>(prev+1));
+    setBallPos({x: 400, y:400})
+  } 
+
+  if (ballPos.y + 28 == 700){
+    console.log("o");
+    p1SetScore((prev)=>(prev+1));
     setBallPos({x: 400, y:400})
   } 
 
   return (
     <main>
        <h1> Hi! you can play Ping Pong here.</h1>
-      
+       <button onClick={handleFlow}> {flow == "pause" ? "play" : "pause"} </button>
        <canvas></canvas>
        <h2 className='score' style={{top: '120px', left: '1200px'}}>{p1Score}</h2>
        <h2 className='score' style={{top: '620px', left: '1200px'}}>{p2Score}</h2>
        <Paddle pos={p1Pos} onChange={updatePaddlePos} />
        <Paddle pos={p2Pos} onChange={updatePaddlePos} />
-       <Ball pos={ballPos} speed={ballSpeed} onPosChange={updateBallPos} onSpeedChange={updateBallSpeed}/>
+       <Ball pos={ballPos} speed={ballSpeed} onPosChange={updateBallPos} onSpeedChange={updateBallSpeed} flow={flow}/>
     </main>
   );
 }
